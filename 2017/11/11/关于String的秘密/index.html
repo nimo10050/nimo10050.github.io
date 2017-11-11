@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="https://nimo10050.github.io">
   <title>关于String的秘密 | 张高培的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令 关于 javapjavap 是JDK自带的反汇编器，可以查看java编译器为我们生成的字节码。通过它，我们可以对照源代码和字节码，从而了解很多编译器内部的工作。 常用命令选项: -c 输出类中各方法的未解析的代码，即构成 Java 字节码的指令。 javap能为我们带来什么 ? 先来看一段简单的代码pub">
+  <meta name="description" content="为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于String的秘密">
 <meta property="og:url" content="https://nimo10050.github.io/2017/11/11/关于String的秘密/index.html">
 <meta property="og:site_name" content="张高培的个人博客">
-<meta property="og:description" content="为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令 关于 javapjavap 是JDK自带的反汇编器，可以查看java编译器为我们生成的字节码。通过它，我们可以对照源代码和字节码，从而了解很多编译器内部的工作。 常用命令选项: -c 输出类中各方法的未解析的代码，即构成 Java 字节码的指令。 javap能为我们带来什么 ? 先来看一段简单的代码pub">
-<meta property="og:updated_time" content="2017-11-11T09:21:10.606Z">
+<meta property="og:description" content="为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令">
+<meta property="og:updated_time" content="2017-11-11T09:24:29.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于String的秘密">
-<meta name="twitter:description" content="为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令 关于 javapjavap 是JDK自带的反汇编器，可以查看java编译器为我们生成的字节码。通过它，我们可以对照源代码和字节码，从而了解很多编译器内部的工作。 常用命令选项: -c 输出类中各方法的未解析的代码，即构成 Java 字节码的指令。 javap能为我们带来什么 ? 先来看一段简单的代码pub">
+<meta name="twitter:description" content="为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令">
   
     <link rel="alternative" href="/atom.xml" title="张高培的个人博客" type="application/atom+xml">
   
@@ -171,7 +171,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令</p>
+        <p>为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令<br><a id="more"></a></p>
 <h2 id="关于-javap"><a href="#关于-javap" class="headerlink" title="关于 javap"></a>关于 javap</h2><p>javap 是JDK自带的反汇编器，可以查看java编译器为我们生成的字节码。通过它，我们可以对照源代码和字节码，从而了解很多编译器内部的工作。</p>
 <p>常用命令选项: -c 输出类中各方法的未解析的代码，即构成 Java 字节码的指令。</p>
 <h2 id="javap能为我们带来什么-先来看一段简单的代码"><a href="#javap能为我们带来什么-先来看一段简单的代码" class="headerlink" title="javap能为我们带来什么 ? 先来看一段简单的代码"></a>javap能为我们带来什么 ? 先来看一段简单的代码</h2><pre><code>public class Demo1 {
