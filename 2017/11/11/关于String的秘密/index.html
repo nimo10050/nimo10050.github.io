@@ -6,17 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://nimo10050.github.io">
-  <title>Archives | 张高培的个人博客</title>
+  <title>关于String的秘密 | 张高培的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="专注Java技术分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张高培的个人博客">
-<meta property="og:url" content="https://nimo10050.github.io/archives/index.html">
+  <meta name="description" content="String 的一些秘密为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令 关于 javapjavap 是JDK自带的反汇编器，可以查看java编译器为我们生成的字节码。通过它，我们可以对照源代码和字节码，从而了解很多编译器内部的工作。 常用命令选项: -c 输出类中各方法的未解析的代码，即构成 Java 字节码的指令。 javap能为我们带来什么 ? 先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于String的秘密">
+<meta property="og:url" content="https://nimo10050.github.io/2017/11/11/关于String的秘密/index.html">
 <meta property="og:site_name" content="张高培的个人博客">
-<meta property="og:description" content="专注Java技术分享">
+<meta property="og:description" content="String 的一些秘密为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令 关于 javapjavap 是JDK自带的反汇编器，可以查看java编译器为我们生成的字节码。通过它，我们可以对照源代码和字节码，从而了解很多编译器内部的工作。 常用命令选项: -c 输出类中各方法的未解析的代码，即构成 Java 字节码的指令。 javap能为我们带来什么 ? 先">
+<meta property="og:updated_time" content="2017-11-11T09:18:18.593Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="张高培的个人博客">
-<meta name="twitter:description" content="专注Java技术分享">
+<meta name="twitter:title" content="关于String的秘密">
+<meta name="twitter:description" content="String 的一些秘密为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令 关于 javapjavap 是JDK自带的反汇编器，可以查看java编译器为我们生成的字节码。通过它，我们可以对照源代码和字节码，从而了解很多编译器内部的工作。 常用命令选项: -c 输出类中各方法的未解析的代码，即构成 Java 字节码的指令。 javap能为我们带来什么 ? 先">
   
     <link rel="alternative" href="/atom.xml" title="张高培的个人博客" type="application/atom+xml">
   
@@ -150,114 +151,250 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-关于String的秘密" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      关于String的秘密
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/11/关于String的秘密/" class="archive-article-date">
+
+        
+        <a href="/2017/11/11/关于String的秘密/" class="archive-article-date">
   	<time datetime="2017-11-11T08:58:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-11</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/11/关于String的秘密/">关于String的秘密</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="String-的一些秘密"><a href="#String-的一些秘密" class="headerlink" title="String 的一些秘密"></a>String 的一些秘密</h1><p>为了挖掘 String 的小秘密, 我们先引入一个小工具— jdk 自带的 javap 命令</p>
+<h2 id="关于-javap"><a href="#关于-javap" class="headerlink" title="关于 javap"></a>关于 javap</h2><p>javap 是JDK自带的反汇编器，可以查看java编译器为我们生成的字节码。通过它，我们可以对照源代码和字节码，从而了解很多编译器内部的工作。</p>
+<p>常用命令选项: -c 输出类中各方法的未解析的代码，即构成 Java 字节码的指令。</p>
+<h2 id="javap能为我们带来什么-先来看一段简单的代码"><a href="#javap能为我们带来什么-先来看一段简单的代码" class="headerlink" title="javap能为我们带来什么 ? 先来看一段简单的代码"></a>javap能为我们带来什么 ? 先来看一段简单的代码</h2><pre><code>public class Demo1 {
 
-        <div class="article-info info-on-right">
-          
-          
+    public static void main(String[] args) {
+        int i = 3;
+        int j = 5;
+    }
 
+}
+</code></pre><h2 id="使用javap命令得到的结果"><a href="#使用javap命令得到的结果" class="headerlink" title="使用javap命令得到的结果"></a>使用javap命令得到的结果</h2><ul>
+<li>在 DOS 命令行上 输入 javac Demo1.java 编译成 class 文件</li>
+<li><p>javap -c Demo1</p>
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><p>  public class Demo1 {</p>
+<pre><code>    public Demo1();
+      Code:
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V
+         4: return
+
+public static void main(java.lang.String[]);
+  Code:
+     0: iconst_3 //取值
+     1: istore_1 //赋值
+     2: iconst_5
+     3: istore_2
+     4: return
+</code></pre><p>}</p>
+</li>
+</ul>
+<p>结合源代码 和 输出结果 iconst_3 和 iconst_5 我们可以推断出是 取出常量值 3 和 5 而 istore_1 和 istore_2 是赋值给第一个变量和第二个变量<br> (其中const 是 常量 constant 的缩写 store是存储的意思)</p>
+<h1 id="经典的-i-和-i-问题"><a href="#经典的-i-和-i-问题" class="headerlink" title="经典的 i++ 和 ++i 问题"></a>经典的 i++ 和 ++i 问题</h1><h2 id="java源代码"><a href="#java源代码" class="headerlink" title="java源代码"></a>java源代码</h2><pre><code>public class Demo2 {
+
+    public void fun1() {
+        int i = 0;
+        System.out.println(i++);
+    }
+
+    public void fun2() {
+        int j = 0;
+        System.out.println(++j);
+    }
+
+}
+</code></pre><p>你可以尝试用上面的 javap 命令去反编译这段代码, 看看你能不能分析出 两个自增方式的原理, 以及下面思考题</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><pre><code>int i = 0;
+
+for(int j=0; j&lt;100; j++) {
+
+    i = i++;
+
+}
+
+System.out.println(&quot;result: &quot; + i);
+</code></pre><h2 id="String-介绍"><a href="#String-介绍" class="headerlink" title="String 介绍"></a>String 介绍</h2><p>String是 Java 中常用的一个类, 通过查看源代码可以看出, 该类由 final 修饰</p>
+<pre><code>public final class String 
+    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence 
+</code></pre><h2 id="String对象的创建"><a href="#String对象的创建" class="headerlink" title="String对象的创建"></a>String对象的创建</h2><p><strong>第一种方式</strong></p>
+<pre><code>String s = &quot;hello&quot;;//创建了一个对象
+</code></pre><p>   先去常量池中查看是否有相同的字符串 </p>
+<ol>
+<li>有的话直接返回引用</li>
+<li>没有的话创建该字符串, 然后放入到常量池中, 最后返回对象引用</li>
+</ol>
+<h3 id="反编译结果"><a href="#反编译结果" class="headerlink" title="反编译结果"></a>反编译结果</h3><pre><code>Code:
+   0: ldc   #2  // String helloworld
+   2: astore_1
+   3: return
+</code></pre><p><strong>第二种方式</strong></p>
+<pre><code>String s = new String(&quot;hello&quot;);//创建了两个对象
+</code></pre><p>   不管常量池中有没有该字符串对象, 都先会在堆中创建一个对象,<br>   然后通过 String 对象的 intern() 方法 往常量池中引入 s 引用</p>
+<h3 id="反编译结果-1"><a href="#反编译结果-1" class="headerlink" title="反编译结果"></a>反编译结果</h3><pre><code>Code:
+0: new           #2                  // class java/lang/String
+3: dup
+4: ldc           #3                  // String helloworld
+6: invokespecial #4                  // Method java/lang/String.&quot;&lt;init&gt;&quot;:(Ljava/lang/String;)V
+9: astore_1
+10: return
+</code></pre><h2 id="String常用方法"><a href="#String常用方法" class="headerlink" title="String常用方法"></a>String常用方法</h2><p><strong>参考API文档</strong></p>
+<h2 id="String拼接字符串"><a href="#String拼接字符串" class="headerlink" title="String拼接字符串"></a>String拼接字符串</h2><h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><pre><code>通过java中唯一被重载的操作符  &quot; + &quot;  拼接字符串    
+</code></pre><h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><pre><code>StringBuilder 的 append() 方法    
+</code></pre><h3 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h3><pre><code>StringBuffer 的 append() 方法
+</code></pre><h2 id="第一种方式的原理"><a href="#第一种方式的原理" class="headerlink" title="第一种方式的原理"></a>第一种方式的原理</h2><h3 id="java测试代码"><a href="#java测试代码" class="headerlink" title="java测试代码"></a>java测试代码</h3><pre><code>public class Demo6 {
+
+    public static void main(String[] args) {
+
+        String s = &quot;hello&quot;;
+        s += &quot;world&quot;;
+
+    }
+
+}
+</code></pre><h3 id="反编译结果-2"><a href="#反编译结果-2" class="headerlink" title="反编译结果"></a>反编译结果</h3><pre><code>public class Demo6 {
+  public Demo6();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: ldc           #2                  // String hello
+       2: astore_1
+       3: new           #3                  // class java/lang/StringBuilder
+       6: dup
+       7: invokespecial #4                  // Method java/lang/StringBuilder.&quot;&lt;init&gt;&quot;:()V
+      10: aload_1
+      11: invokevirtual #5                  // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+      14: ldc           #6                  // String world
+      16: invokevirtual #5                  // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+      19: invokevirtual #7                  // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+      22: astore_1
+      23: return
+}
+</code></pre><p>通过反编译结果, 我们可以看出 当我们进行拼接字符串时, 创建了一个 StringBuilder 对象, 然后调用了它append方法实现拼接字符串</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://nimo10050.github.io/2017/11/11/关于String的秘密/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/11/Google的Java开发规范/" class="archive-article-date">
-  	<time datetime="2017-11-11T07:33:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/11/Google的Java开发规范/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Google 的 Java 开发规范</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/11/Google的Java开发规范/">Google 的 Java 开发规范</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/10/个人博客搭建成功/" class="archive-article-date">
-  	<time datetime="2017-11-10T07:07:02.420Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/10/个人博客搭建成功/">个人博客搭建成功</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -280,8 +417,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
