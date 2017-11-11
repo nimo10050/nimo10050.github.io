@@ -239,75 +239,9 @@
       
         <p>今天阅读了 Google 推出的 Java 开发规范, 内容不多也不少, 我把其中不容易遵守的几条规范列举了出来, 至于其他的规范(例如大驼峰命名, 小驼峰命名)我认为相对来讲, 大家都印在脑子里了, 所以在这里我就跳过去了.</p>
 <p>当然如果你有时间可以阅读<a href="http://www.hawstein.com/posts/google-java-style.html" target="_blank" rel="external">这个</a>比较全的版本</p>
-<h2 id="源文件结构"><a href="#源文件结构" class="headerlink" title="源文件结构"></a>源文件结构</h2><ul>
-<li>package 语句</li>
-<li>import 语句</li>
-<li>一个顶级类(只能有一个)</li>
-</ul>
-<p><strong>以上部分之间用一个空行分隔</strong></p>
-<hr>
-<h2 id="import-语句"><a href="#import-语句" class="headerlink" title="import 语句"></a>import 语句</h2><ul>
-<li>不要使用通配符 </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">错误示范</span><br><span class="line">    import java.util.*;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>进行分组, 组之间留空行</p>
-<ul>
-<li>所有静态导入独立成组 </li>
-<li>第三方的包(每个顶级包为一组)</li>
-<li>import java</li>
-<li>import javax</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="类声明"><a href="#类声明" class="headerlink" title="类声明"></a>类声明</h2><ul>
-<li>每个顶级类都在一个与它同名的源文件中</li>
-<li>类成员的顺序要按某种逻辑排序, 而不是根据编写时间排序</li>
-<li>重载方法要放在一起, 中间不能存在其他方法</li>
-</ul>
-<hr>
-<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><ul>
-<li><p>空块可以放在一行</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void doSomething() &#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>块缩进用两个空格</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不要用四个空格, 更不要用制表符代替</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h2 id="自动换行"><a href="#自动换行" class="headerlink" title="自动换行"></a>自动换行</h2><h6 id="从哪里断开"><a href="#从哪里断开" class="headerlink" title="从哪里断开 ?"></a>从哪里断开 ?</h6><ul>
-<li>如果在非赋值运算符处断开, 那么在该符号前断开, 例如 + 它应该处于第二行</li>
-<li>如果在赋值运算符处断开, 通常在 = 后断开</li>
-<li>逗号( , )应该与他前面的内容留在同一行</li>
-</ul>
-<hr>
-<h2 id="空白"><a href="#空白" class="headerlink" title="空白"></a>空白</h2><h6 id="垂直空白"><a href="#垂直空白" class="headerlink" title="垂直空白"></a>垂直空白</h6><ul>
-<li>类成员之间要用一个空行隔开</li>
-<li>函数体内逻辑分组之间要用一个空行</li>
-<li>多个连续空行是允许的, 但是显得很没必要<h6 id="水平空白"><a href="#水平空白" class="headerlink" title="水平空白"></a>水平空白</h6></li>
-<li>,  :  ; 以及  } 之后要用一个空格</li>
-<li>// 注释前后都要有一个空格</li>
-<li>数组初始化中大括号内的空格是可选的</li>
-</ul>
-<hr>
-<h2 id="具体结构"><a href="#具体结构" class="headerlink" title="具体结构"></a>具体结构</h2><h3 id="if-语句和-while-语句"><a href="#if-语句和-while-语句" class="headerlink" title="if 语句和 while 语句"></a>if 语句和 while 语句</h3><ul>
-<li><p>哪怕只有一条执行语句也放在 大括号 { } 里面 </p>
-<h3 id="switch-语句"><a href="#switch-语句" class="headerlink" title="switch 语句"></a>switch 语句</h3></li>
-<li><p>每个 <strong>case</strong> 后面的时间执行完, </p>
-<ul>
-<li>要么用 <strong>break</strong>, <strong>continue</strong> , <strong>return</strong> 或者<strong>抛异常</strong>来终止运行 </li>
-<li>要么通过注释 <strong>// 通过</strong> 声明继续运行</li>
-</ul>
-</li>
-<li><strong>default</strong> 要写出来, 哪怕后面什么代码都没有</li>
-</ul>
-<hr>
-<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><ul>
-<li>对于多行注释，后续行必须从 <em> 开始， 并且与前一行的</em>对齐</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> *</span><br><span class="line"> *</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2017/11/11/Google的Java开发规范/#more">more >></a>
+        
       
 
       
@@ -380,10 +314,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>历尽千辛万苦, 终于完成了博客的搭建!</p>
-<p>在我访问的那一刻真的泪目了,一年的时间里,三次尝试搭建,但是却一次又一次地失败,好在功夫不负有心人, 今天终于成功了.总的来说就是在搭建的过程中一定要耐心, 耐心,耐心!!! 这很重要, 我刚开始也是一脸懵,看着一堆命令却不知道是干什么的,一直埋头敲,参考了N篇教程,有的教程很详细,可以算是手把手教你了,但是在我这就是行不通,这也是我前面放弃的原因, 这里可能牵扯到版本的问题,所以这里建议大家尽量参考最新的教程,在这里给大家推荐我所<a href="http://www.jianshu.com/p/190f85f304c6" target="_blank" rel="external">参考的文章</a></p>
-<p>最后我写这篇文章一是想表达我内心的喜悦, 二是测试一下发布文章的功能, 之后我会写一篇自己搭建博客的教程, 还会分享一些其他技术性的文章, 希望大家多多支持!!</p>
-
+        <p>历尽千辛万苦, 终于完成了博客的搭建!<br>
+        
+          <a class="article-more-a" href="/2017/11/10/个人博客搭建成功/#more">more >></a>
+        
       
 
       
